@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lab1/controllers/auth_sevice.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -10,21 +11,38 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  void _login() {
+  void _login() async{
     if (_formKey.currentState!.validate()) {
       final username = _usernameController.text;
       final password = _passwordController.text;
-
-      // Normally, you would send the username and password to your backend server here
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Logged in as: $username')),
-      );
-
-      // Navigate back to the home page or another page after successful login
-      Navigator.pop(context);
+      try {
+        final user = await AuthService().login(username, password);
+      } catch (err) {
+        print(err);
+      }
     }
   }
+
+  // void _login() {
+  //   if (_formKey.currentState!.validate()) {
+  //     final username = _usernameController.text;
+  //     final password = _passwordController.text;
+
+  //     // Dummy authentication check (replace with actual authentication logic)
+  //     if (username == 'user' && password == 'pass') {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(content: Text('Login successful as: $username')),
+  //       );
+
+  //       // Navigate to another page after successful login
+  //       Navigator.pop(context);
+  //     } else {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(content: Text('Invalid username or password')),
+  //       );
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

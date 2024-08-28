@@ -26,7 +26,7 @@ class _RegisterPageState extends State<RegisterPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Registered: $name, $username, $role')),
       );
-      
+
       // Navigate back to the home page or another page after successful registration
       Navigator.pop(context);
     }
